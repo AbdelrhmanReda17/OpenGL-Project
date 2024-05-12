@@ -79,13 +79,3 @@ void Mesh::Draw
 	// Draw the actual mesh
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 }
-
-void Mesh::Translate(glm::vec3 translation)
-{
-	
-}
-
-void Mesh::Rotate(glm::quat rotation)
-{
-	
-}

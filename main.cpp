@@ -2,61 +2,15 @@
 #include<filesystem>
 namespace fs = std::filesystem;
 //------------------------------
-
-
 #include <iostream>
 #include "Mesh.h"
 #include "Model.h"
+#include <math.h>
+#include <cmath>
+#include "Home.cpp"
 
 
-Vertex HouseVertices[] = {
-	Vertex{glm::vec3(-0.2f, 0.0f, 0.2f), glm::vec3(0.8, 0.8, 0.8)},
-	Vertex{glm::vec3(-0.2f, 0.0f, -0.2f), glm::vec3(0.8, 0.8, 0.8)},
-	Vertex{glm::vec3(0.0f, 0.0f, -0.2f), glm::vec3(0.8, 0.8, 0.8)},
-	Vertex{glm::vec3(0.0f, 0.0f, 0.2f), glm::vec3(0.8, 0.8, 0.8)},
-	Vertex{glm::vec3(-0.2f, -0.3f, 0.2f), glm::vec3(0.8, 0.8, 0.8)},
-	Vertex{glm::vec3(-0.2f, -0.3f, -0.2f), glm::vec3(0.8, 0.8, 0.8)},
-	Vertex{glm::vec3(0.0f, -0.3f, -0.2f), glm::vec3(0.8, 0.8, 0.8)},
-	Vertex{glm::vec3(0.0f, -0.3f, 0.2f), glm::vec3(0.8, 0.8, 0.8)},
-	// 2nd floor
-	Vertex{glm::vec3(-0.2f, -0.3f, 0.2f), glm::vec3(0, 0.8, 0.8)},
-	Vertex{glm::vec3(-0.2f, -0.3f, -0.2f), glm::vec3(0, 0.8, 0.8)},
-	Vertex{glm::vec3(0.0f, -0.3f, -0.2f), glm::vec3(0, 0.8, 0.8)},
-	Vertex{glm::vec3(0.0f, -0.3f, 0.2f), glm::vec3(0, 0.8, 0.8)},
-	Vertex{glm::vec3(-0.2f, -0.6f, 0.2f), glm::vec3(0, 0.8, 0.8)},
-	Vertex{glm::vec3(-0.2f, -0.6f, -0.2f), glm::vec3(0, 0.8, 0.8)},
-	Vertex{glm::vec3(0.0f, -0.6f, -0.2f), glm::vec3(0, 0.8, 0.8)},
-	Vertex{glm::vec3(0.0f, -0.6f, 0.2f), glm::vec3(0, 0.8, 0.8)},
-};
 
-
-GLuint HouseIndices[] = {
-		0, 1, 2,
-		0, 2, 3,
-		0, 4, 7,
-		0, 7, 3,
-		3, 7, 6,
-		3, 6, 2,
-		2, 6, 5,
-		2, 5, 1,
-		1, 5, 4,
-		1, 4, 0,
-		4, 5, 6,
-		4, 6, 7,
-
-		8, 9, 10,
-		8, 10, 11,
-		8, 12, 15,
-		8, 15, 11,
-		11, 15, 14,
-		11, 14, 10,
-		10, 14, 13,
-		10, 13, 9,
-		9, 13, 12,
-		9, 12, 8,
-		12, 13, 14,
-		12, 14, 15
-};
 
 
 
@@ -85,7 +39,6 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 	height = height;
 	glViewport(0, 0, width, height);
 }
-
 
 int main()
 {
@@ -121,14 +74,6 @@ int main()
 	glViewport(0, 0, width, height);
 
 
-	/*
-	* I'm doing this relative path thing in order to centralize all the resources into one folder and not
-	* duplicate them between tutorial folders. You can just copy paste the resources from the 'Resources'
-	* folder and then give a relative path from this folder to whatever resource you want to get to.
-	* Also note that this requires C++17, so go to Project Properties, C/C++, Language, and select C++17
-	*/
-
-
 	// Original code from the tutorial
 	Texture textures[]
 	{
@@ -147,10 +92,14 @@ int main()
 	// Create floor mesh
 	Mesh floor(verts, ind, tex);
 
+	Home myhome;
+	Model cubeModelFile = myhome.getModel();
 
-	std::vector<Vertex> vertices(HouseVertices, HouseVertices + sizeof(HouseVertices) / sizeof(Vertex));
-	std::vector<GLuint> indices(HouseIndices, HouseIndices + sizeof(HouseIndices) / sizeof(GLuint));
-	Mesh cube(vertices, indices, tex);
+
+	//Mesh cube2(vertices2, indices2, tex);
+
+	//std::vector<Mesh> cubeMesh = { cube, cube2 };
+	//Model cubeModel(cubeMesh);
 
 	// Enables the Depth Buffer
 	glEnable(GL_DEPTH_TEST);
@@ -164,7 +113,7 @@ int main()
 	while (!glfwWindowShouldClose(window))
 	{
 		// Specify the color of the background
-		glClearColor(0.2f, 0.5f, 0.3f, 1.0f);		
+		glClearColor(0.2f, 0.5f, 0.3f, 1.0f);
 		// Clean the back buffer and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -177,10 +126,11 @@ int main()
 
 		// Draws different meshes
 		floor.Draw(shaderProgram, camera);
-		cube.Draw(shaderProgram, camera, glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::quat(1.0f, 0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+		//cube.Draw(shaderProgram, camera, glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::quat(1.0f, 0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 		// light.Draw(lightShader, camera);
 		// myCube.Draw(shaderProgram, camera);
-
+		cubeModelFile.Draw(shaderProgram, camera);
+		//cubeModel.rotate(shaderProgram, camera);
 
 		// Swap the back buffer with the front buffer
 		glfwSwapBuffers(window);
