@@ -10,25 +10,27 @@ namespace fs = std::filesystem;
 
 
 Vertex HouseVertices[] = {
-	// Apartment 1
-	// Vertices for the main body of the first apartment
-	Vertex{glm::vec3(-0.2f, -0.1f, 0.2f), glm::vec3(0.8, 0.8, 0.8)},
-	Vertex{glm::vec3(-0.2f, -0.1f, -0.2f), glm::vec3(0.8, 0.8, 0.8)},
-	Vertex{glm::vec3(0.0f, -0.1f, -0.2f), glm::vec3(0.8, 0.8, 0.8)},
-	Vertex{glm::vec3(0.0f, -0.1f, 0.2f), glm::vec3(0.8, 0.8, 0.8)},
+	Vertex{glm::vec3(-0.2f, 0.0f, 0.2f), glm::vec3(0.8, 0.8, 0.8)},
+	Vertex{glm::vec3(-0.2f, 0.0f, -0.2f), glm::vec3(0.8, 0.8, 0.8)},
+	Vertex{glm::vec3(0.0f, 0.0f, -0.2f), glm::vec3(0.8, 0.8, 0.8)},
+	Vertex{glm::vec3(0.0f, 0.0f, 0.2f), glm::vec3(0.8, 0.8, 0.8)},
 	Vertex{glm::vec3(-0.2f, -0.3f, 0.2f), glm::vec3(0.8, 0.8, 0.8)},
 	Vertex{glm::vec3(-0.2f, -0.3f, -0.2f), glm::vec3(0.8, 0.8, 0.8)},
 	Vertex{glm::vec3(0.0f, -0.3f, -0.2f), glm::vec3(0.8, 0.8, 0.8)},
 	Vertex{glm::vec3(0.0f, -0.3f, 0.2f), glm::vec3(0.8, 0.8, 0.8)},
-
+	// 2nd floor
+	Vertex{glm::vec3(-0.2f, -0.3f, 0.2f), glm::vec3(0, 0.8, 0.8)},
+	Vertex{glm::vec3(-0.2f, -0.3f, -0.2f), glm::vec3(0, 0.8, 0.8)},
+	Vertex{glm::vec3(0.0f, -0.3f, -0.2f), glm::vec3(0, 0.8, 0.8)},
+	Vertex{glm::vec3(0.0f, -0.3f, 0.2f), glm::vec3(0, 0.8, 0.8)},
+	Vertex{glm::vec3(-0.2f, -0.6f, 0.2f), glm::vec3(0, 0.8, 0.8)},
+	Vertex{glm::vec3(-0.2f, -0.6f, -0.2f), glm::vec3(0, 0.8, 0.8)},
+	Vertex{glm::vec3(0.0f, -0.6f, -0.2f), glm::vec3(0, 0.8, 0.8)},
+	Vertex{glm::vec3(0.0f, -0.6f, 0.2f), glm::vec3(0, 0.8, 0.8)},
 };
 
 
-
-
 GLuint HouseIndices[] = {
-	// Apartment 1
-		// Indices for the main body of the first apartment
 		0, 1, 2,
 		0, 2, 3,
 		0, 4, 7,
@@ -42,8 +44,20 @@ GLuint HouseIndices[] = {
 		4, 5, 6,
 		4, 6, 7,
 
-
+		8, 9, 10,
+		8, 10, 11,
+		8, 12, 15,
+		8, 15, 11,
+		11, 15, 14,
+		11, 14, 10,
+		10, 14, 13,
+		10, 13, 9,
+		9, 13, 12,
+		9, 12, 8,
+		12, 13, 14,
+		12, 14, 15
 };
+
 
 
 const unsigned int width = 800;
