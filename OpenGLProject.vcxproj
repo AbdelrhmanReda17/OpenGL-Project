@@ -79,8 +79,8 @@
     <LibraryPath>D:\Courses\College Courses\Third Year\Second Term\Computer Graphics\Project\Workspace\OpenGLProject\Libiraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\Courses\College Courses\Third Year\Second Term\Computer Graphics\Project\Workspace\OpenGLProject\Libiraries\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Courses\College Courses\Third Year\Second Term\Computer Graphics\Project\Workspace\OpenGLProject\Libiraries\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\projects\OpenGL\Computer Graphics Project\OpenGL-House\Libraries\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\projects\OpenGL\Computer Graphics Project\OpenGL-House\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>D:\Courses\College Courses\Third Year\Second Term\Computer Graphics\Project\Workspace\OpenGLProject\Libiraries\include;$(IncludePath)</IncludePath>
@@ -129,13 +129,13 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>D:\Courses\College Courses\Third Year\Second Term\Computer Graphics\GLUT\Glew and Glut\glew-1.11.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\projects\OpenGL\Computer Graphics Project\OpenGL-House\Libraries\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>D:\Courses\College Courses\Third Year\Second Term\Computer Graphics\GLUT\Glew and Glut\glew-1.11.0\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\projects\OpenGL\Computer Graphics Project\OpenGL-House\Libraries\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
