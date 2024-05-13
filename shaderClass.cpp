@@ -61,6 +61,10 @@ Shader::Shader(const char* vertexFile, const char* fragmentFile)
 	glDeleteShader(fragmentShader);
 
 }
+void Shader::setMat4(const std::string& name, const glm::mat4& mat) const {
+	unsigned int transformLoc = glGetUniformLocation(ID, name.c_str());
+	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(mat));
+}
 
 // Activates the Shader Program
 void Shader::Activate()

@@ -8,11 +8,14 @@ namespace fs = std::filesystem;
 #include <math.h>
 #include <cmath>
 
-
-
 const unsigned int width = 800;
 const unsigned int height = 800;
-
+float deltaTime = 0.0f;
+float lastFrame = 0.0f;
+float lastX = 0.0f;
+float lastY = 0.0f;
+bool camMode = false;
+Camera camera(glm::vec3(0.0f, 2.0f, 0.0f) ,glm::vec3(0.0f,1.0f,0.0f), 0, -90 );
 
 Model loadHouse(std::vector<Texture>& tex) {
 	std::vector<Mesh> Meshes;
@@ -26,6 +29,44 @@ Model loadHouse(std::vector<Texture>& tex) {
 	return homeModel;
 
 }
+void input(GLFWwindow* window) {
+		// Handles camera inputs
+		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+			camera.processKeyboard(FORWARD, deltaTime);
+		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+			camera.processKeyboard(BACKWARD, deltaTime);
+		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+			camera.processKeyboard(LEFT, deltaTime);
+		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+			camera.processKeyboard(RIGHT, deltaTime);
+}
+
+
+void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
+    float xoffset = xpos - lastX;
+    float yoffset = lastY - ypos;
+    lastX = xpos;
+    lastY = ypos;
+	if (!camMode) return;
+    camera.processMouseMovement(xoffset, yoffset);
+}
+
+void mouseClick_callback(GLFWwindow* window, int button, int action, int mods) {
+	if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS) {
+		camMode = true;
+	}
+	else if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_RELEASE) {
+		camMode = false;
+	}
+}
+
+void calculateDeltaTime() {
+	float currentFrame = glfwGetTime();
+	deltaTime = currentFrame - lastFrame;
+	lastFrame = currentFrame;
+}
+
+
 
 void HouseInputs(GLFWwindow* window) {
 	if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS)
@@ -50,7 +91,6 @@ void HouseInputs(GLFWwindow* window) {
 		}
 	}
 }
-
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 	width = width;
@@ -86,7 +126,8 @@ int main()
 	// Load GLAD so it configures OpenGL
 	gladLoadGL();
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-
+	glfwSetCursorPosCallback(window, mouse_callback);
+	glfwSetMouseButtonCallback(window, mouseClick_callback);
 	// Specify the viewport of OpenGL in the Window
 	// In this case the viewport goes from x = 0, y = 0, to x = 800, y = 800
 	glViewport(0, 0, width, height);
@@ -114,30 +155,27 @@ int main()
 
 	// Enables the Depth Buffer
 	glEnable(GL_DEPTH_TEST);
-	// Creates camera object
-	Camera camera(width, height, glm::vec3(-2.0f, 1.0f, 0.0f));
-
-
-
 
 	// Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
+		// Calculate delta time
+		calculateDeltaTime();
+
 		// Specify the color of the background
 		glClearColor(0.2f, 0.5f, 0.3f, 1.0f);
 		// Clean the back buffer and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-
-		// Handles camera inputs
-		camera.Inputs(window);
-		// Updates and exports the camera matrix to the Vertex Shader
-		camera.updateMatrix(45.0f, 0.1f, 100.0f);
+		input(window);	
+		glm::mat4 view = camera.GetViewMatrix();
+		shaderProgram.setMat4("view", view);
+		glm::mat4 projection = glm::mat4(1.0f);
+		projection = glm::perspective(glm::radians(camera.zoom), (float)width / (float)height, 0.1f, 100.0f);
+		shaderProgram.setMat4("projection", projection);
 
 		// Draws different meshes
 		floor.Draw(shaderProgram, camera);
 		homeModel.Draw(shaderProgram, camera);
-
 		// Swap the back buffer with the front buffer
 		glfwSwapBuffers(window);
 		// Take care of all GLFW events

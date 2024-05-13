@@ -10,35 +10,46 @@
 #include<glm/gtx/vector_angle.hpp>
 
 #include"shaderClass.h"
+enum Camera_Movement {
+    FORWARD,
+    BACKWARD,
+    LEFT,
+    RIGHT
+};
 
-class Camera
-{
+const float YAW = -90.0f;
+const float PITCH = 0.0f;
+const float SPEED = 2.5f;
+const float SENSITIVITY = 0.1f;
+const float ZOOMMIN = 20.0f;
+const float ZOOMMAX = 60.0f;
+
+class Camera {
 public:
-	// Stores the main vectors of the camera
-	glm::vec3 Position;
-	glm::vec3 Orientation = glm::vec3(0.0f, 0.0f, -1.0f);
-	glm::vec3 Up = glm::vec3(0.0f, 1.0f, 0.0f);
-	glm::mat4 cameraMatrix = glm::mat4(1.0f);
+    // Camera Attributes
+    glm::vec3 position;
+    glm::vec3 front;
+    glm::vec3 up;
+    glm::vec3 right;
+    glm::vec3 worldUp;
 
-	// Prevents the camera from jumping around when first clicking left click
-	bool firstClick = true;
+    // Euler Angles
+    float yaw;
+    float pitch;
 
-	// Stores the width and height of the window
-	int width;
-	int height;
+    // Camera options
+    float movementSpeed = 2.5f;
+    float mouseSensitivity = 0.1f;
+    float zoom = 60.0f;
 
-	// Adjust the speed of the camera and it's sensitivity when looking around
-	float speed = 0.1f;
-	float sensitivity = 100.0f;
-
-	// Camera constructor to set up initial values
-	Camera(int width, int height, glm::vec3 position);
-
-	// Updates the camera matrix to the Vertex Shader
-	void updateMatrix(float FOVdeg, float nearPlane, float farPlane);
-	// Exports the camera matrix to a shader
-	void Matrix(Shader& shader, const char* uniform);
-	// Handles camera inputs
-	void Inputs(GLFWwindow* window);
+    Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f),
+        glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f),
+        float yaw = YAW, float pitch = PITCH);
+    void processKeyboard(Camera_Movement direction, float deltaTime);
+    void processMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch = true);
+    void processMouseScroll(float yoffset);
+    glm::mat4 GetViewMatrix();
+private:
+    void updateCameraVectors();
 };
 #endif
