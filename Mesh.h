@@ -11,17 +11,16 @@
 
 class Mesh
 {
+private: 
+	void readMesh(std::string path);
 public:
 	std::vector <Vertex> vertices;
 	std::vector <GLuint> indices;
 	std::vector <Texture> textures;
 	VAO VAO;
 
-
 	// Initializes the mesh
-	Mesh(std::vector <Vertex>& vertices, std::vector <GLuint>& indices, std::vector <Texture>& textures);
-
-
+	Mesh(std::string filename ,  std::vector <Texture>& textures);
 	// Draws the mesh
 	void Draw(Shader& shader, Camera& camera,
 		glm::mat4 matrix = glm::mat4(1.0f),

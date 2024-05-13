@@ -6,3 +6,10 @@
 /.vs
 /OpenGL-House
 /OpenGLProject
+OpenGLProject.vcxproj
+OpenGLProject.vcxproj.filters
+OpenGLProject.vcxproj
+
+*.vcxproj
+*.vcxproj
+OpenGLProject.vcxproj

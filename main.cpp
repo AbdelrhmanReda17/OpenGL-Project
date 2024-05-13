@@ -7,10 +7,6 @@ namespace fs = std::filesystem;
 #include "Model.h"
 #include <math.h>
 #include <cmath>
-#include "Home.cpp"
-
-
-
 
 
 
@@ -18,20 +14,42 @@ const unsigned int width = 800;
 const unsigned int height = 800;
 
 
-Vertex vertices[] =
-{ //               COORDINATES           /            COLORS          /           NORMALS      /
-	Vertex{glm::vec3(-1.0f, 0.0f,  1.0f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec2(0.0f, 0.0f)},
-	Vertex{glm::vec3(-1.0f, 0.0f, -1.0f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec2(0.0f, 1.0f)},
-	Vertex{glm::vec3(1.0f ,	0.0f, -1.0f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec2(1.0f, 1.0f)},
-	Vertex{glm::vec3(1.0f ,	0.0f,  1.0f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec2(1.0f, 0.0f)}
-};
+Model loadHouse(std::vector<Texture>& tex) {
+	std::vector<Mesh> Meshes;
+	Meshes.push_back(Mesh("home.txt", tex));
+	Meshes.push_back(Mesh("door.txt", tex));
+	Meshes.push_back(Mesh("FirstFloorRWindow.txt", tex));
+	Meshes.push_back(Mesh("FirstFloorLWindow.txt", tex));
+	Meshes.push_back(Mesh("SecondFloorLWindow.txt", tex));
+	Meshes.push_back(Mesh("SecondFloorRWindow.txt", tex));
+	Model homeModel(Meshes);
+	return homeModel;
 
-// Indices for vertices order
-GLuint indices[] =
-{
-	0, 1, 2,
-	0, 2, 3
-};
+}
+
+void HouseInputs(GLFWwindow* window) {
+	if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS)
+	{
+		// open door
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS)
+	{
+		// close door
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS) {
+		if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS)
+		{
+			// open window
+		}
+
+		if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS)
+		{
+			// close window
+		}
+	}
+}
 
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
@@ -86,26 +104,19 @@ int main()
 	// Generates Shader object using shaders default.vert and default.frag
 	Shader shaderProgram("default.vert", "default.frag");
 	// Store mesh data in vectors for the mesh
-	std::vector <Vertex> verts(vertices, vertices + sizeof(vertices) / sizeof(Vertex));
-	std::vector <GLuint> ind(indices, indices + sizeof(indices) / sizeof(GLuint));
+
 	std::vector <Texture> tex(textures, textures + sizeof(textures) / sizeof(Texture));
 	// Create floor mesh
-	Mesh floor(verts, ind, tex);
+	Mesh floor("floor.txt", tex);
 
-	Home myhome;
-	Model cubeModelFile = myhome.getModel();
+	Model homeModel = loadHouse(tex);
 
-
-	//Mesh cube2(vertices2, indices2, tex);
-
-	//std::vector<Mesh> cubeMesh = { cube, cube2 };
-	//Model cubeModel(cubeMesh);
 
 	// Enables the Depth Buffer
 	glEnable(GL_DEPTH_TEST);
-
 	// Creates camera object
-	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
+	Camera camera(width, height, glm::vec3(-2.0f, 1.0f, 0.0f));
+
 
 
 
@@ -123,14 +134,9 @@ int main()
 		// Updates and exports the camera matrix to the Vertex Shader
 		camera.updateMatrix(45.0f, 0.1f, 100.0f);
 
-
 		// Draws different meshes
 		floor.Draw(shaderProgram, camera);
-		//cube.Draw(shaderProgram, camera, glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::quat(1.0f, 0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f));
-		// light.Draw(lightShader, camera);
-		// myCube.Draw(shaderProgram, camera);
-		cubeModelFile.Draw(shaderProgram, camera);
-		//cubeModel.rotate(shaderProgram, camera);
+		homeModel.Draw(shaderProgram, camera);
 
 		// Swap the back buffer with the front buffer
 		glfwSwapBuffers(window);
@@ -139,9 +145,9 @@ int main()
 	}
 
 
-
 	// Delete all the objects we've created
 	shaderProgram.Delete();
+
 	//lightShader.Delete();
 	// Delete window before ending the program
 	glfwDestroyWindow(window);

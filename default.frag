@@ -22,6 +22,6 @@ void main()
 {
 	// outputs final color
 	
-	FragColor = vec4(color,1.0f);
+	FragColor = vec4(color,0.0f);
 	//FragColor  = texture(diffuse0, texCoord);
 }

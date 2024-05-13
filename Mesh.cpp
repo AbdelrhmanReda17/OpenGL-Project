@@ -1,8 +1,10 @@
 #include "Mesh.h"
 
 
-Mesh::Mesh(std::vector <Vertex>& vertices, std::vector <GLuint>& indices, std::vector <Texture>& textures)
+Mesh::Mesh(std::string fileName, std::vector <Texture>& textures)
 {
+
+	readMesh(fileName);
 	Mesh::vertices = vertices;
 	Mesh::indices = indices;
 	Mesh::textures = textures;
@@ -22,6 +24,38 @@ Mesh::Mesh(std::vector <Vertex>& vertices, std::vector <GLuint>& indices, std::v
 	EBO.Unbind();
 }
 
+void Mesh::readMesh(std::string filename)
+{
+		std::ifstream file(filename);
+		if (!file.is_open()) {
+			std::cerr << "Error: Unable to open file " << filename << std::endl;
+			return;
+		}
+		std::string line;
+		while (std::getline(file, line)) {
+			std::stringstream ss(line);
+			std::string type;
+			ss >> type;
+
+			if (type == "v") {
+				glm::vec3 position;
+				glm::vec3 color;
+				ss >> position.x >> position.y >> position.z >> color.r >> color.g >> color.b;
+				position += 0.0f;
+				color += 0.0f;
+
+				vertices.push_back(Vertex{ position, color });
+			}
+			else if (type == "f") {
+				GLuint index1, index2, index3;
+				ss >> index1 >> index2 >> index3;
+				indices.push_back(index1); 
+				indices.push_back(index2);
+				indices.push_back(index3);
+			}
+		}
+		file.close();
+}
 
 void Mesh::Draw
 (
