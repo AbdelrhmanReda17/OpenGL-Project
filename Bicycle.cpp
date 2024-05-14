@@ -6,8 +6,8 @@ public:
         this->LoadModel();
     }
 
-    glm::vec3 initialRightPivot = glm::vec3(0.38f, 0.21f, 0.609f);
-    glm::vec3 initialLeftPivot = glm::vec3(0.305f, 0.21f, 0.6f);
+    glm::vec3 initialRightPivot = glm::vec3(0.38f, 0.21f, 0.6045f);
+    glm::vec3 initialLeftPivot = glm::vec3(0.305f, 0.21f, 0.6045f);
     glm::vec3 rightpivot;
     glm::vec3 leftpivot;
 
