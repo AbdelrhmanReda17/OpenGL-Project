@@ -6,8 +6,7 @@
 #include"VAO.h"
 #include"EBO.h"
 #include"Camera.h"
-#include"Texture.h"
-
+#include<glm/gtx/vector_angle.hpp>
 
 class Mesh
 {
@@ -16,17 +15,22 @@ private:
 public:
 	std::vector <Vertex> vertices;
 	std::vector <GLuint> indices;
-	std::vector <Texture> textures;
+	glm::mat4 model;
+	glm::vec3 translation;
+	glm::vec3 position;
+	glm::vec3 rotation;
+	glm::vec3 scale;
 	VAO VAO;
-
 	// Initializes the mesh
-	Mesh(std::string filename ,  std::vector <Texture>& textures);
-	// Draws the mesh
-	void Draw(Shader& shader, Camera& camera,
-		glm::mat4 matrix = glm::mat4(1.0f),
-		glm::vec3 translation = glm::vec3(0.0f, 0.0f, 0.0f),
-		glm::quat rotation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f),
-		glm::vec3 scale = glm::vec3(1.0f, 1.0f, 1.0f)
-	);
+	Mesh(std::string filename);
+	Mesh();
+	void Setup();
+	void translateMesh(const glm::vec3& translation);
+	void scaleMesh(const glm::vec3& scale);
+	void rotateMesh(const glm::vec3& rotation);
+	void rotateAroundPivot(float angle, const glm::vec3& axis, const glm::vec3& pivot);
+	void rotateByAngle(float angle, const glm::vec3& axis);
+	void RotateAbout(float angle, const glm::vec3& axis, glm::vec3& center);
+	void Draw(Shader& shader, Camera& camera);
 };
 #endif
