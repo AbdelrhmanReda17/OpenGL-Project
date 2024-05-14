@@ -8,15 +8,15 @@
 class Model
 {
 public:
-	Model(std::vector<Mesh>&);
+	Model();
 	void Draw(Shader& shader, Camera& camera);
+	virtual void LoadModel() = 0;
+	virtual void ModelInputs(GLFWwindow* window , float deltaTime) = 0;
+	std::vector<Mesh> meshes;
+	bool isMoving = false;
 
 private:
 	// All the meshes and transformations
-	std::vector<Mesh> meshes;
-	std::vector<glm::vec3> translationsMeshes;
-	std::vector<glm::vec3> rotationsMeshes;
-	std::vector<glm::vec3> scalesMeshes;
-	std::vector<glm::mat4> matricesMeshes;
+	
 };
 #endif

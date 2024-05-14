@@ -16,8 +16,11 @@
     <Filter Include="Resource Files\Shaders">
       <UniqueIdentifier>{a9de1b02-73ba-4a5e-bc4b-f97499b7c358}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\Textures">
-      <UniqueIdentifier>{f0d17b16-11cf-4703-b4a0-94bfa8837c40}</UniqueIdentifier>
+    <Filter Include="Resource Files\Meshes">
+      <UniqueIdentifier>{36e35b76-39b2-49be-8675-950780798186}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Models">
+      <UniqueIdentifier>{6bc82b82-0ec2-466e-8f7f-c7699ee5d9ed}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -39,12 +42,6 @@
     <ClCompile Include="VAO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="stb.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -54,8 +51,11 @@
     <ClCompile Include="Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Home.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="House.cpp">
+      <Filter>Source Files\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Bicycle.cpp">
+      <Filter>Source Files\Models</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -63,12 +63,6 @@
       <Filter>Resource Files\Shaders</Filter>
     </None>
     <None Include="default.frag">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="light.frag">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="light.vert">
       <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>
@@ -85,9 +79,6 @@
     <ClInclude Include="VAO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -99,11 +90,38 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="satoro.jpg">
-      <Filter>Resource Files\Textures</Filter>
-    </Image>
-    <Image Include="microsoft.png">
-      <Filter>Resource Files\Textures</Filter>
-    </Image>
+    <Text Include="Door.txt">
+      <Filter>Resource Files\Meshes</Filter>
+    </Text>
+    <Text Include="FirstFloorLWindow.txt">
+      <Filter>Resource Files\Meshes</Filter>
+    </Text>
+    <Text Include="FirstFloorRWindow.txt">
+      <Filter>Resource Files\Meshes</Filter>
+    </Text>
+    <Text Include="Floor.txt">
+      <Filter>Resource Files\Meshes</Filter>
+    </Text>
+    <Text Include="Home.txt">
+      <Filter>Resource Files\Meshes</Filter>
+    </Text>
+    <Text Include="SecondFloorLWindow.txt">
+      <Filter>Resource Files\Meshes</Filter>
+    </Text>
+    <Text Include="SecondFloorRWindow.txt">
+      <Filter>Resource Files\Meshes</Filter>
+    </Text>
+    <Text Include="FirstCircle.txt">
+      <Filter>Resource Files\Meshes</Filter>
+    </Text>
+    <Text Include="Seat.txt">
+      <Filter>Resource Files\Meshes</Filter>
+    </Text>
+    <Text Include="SecondCircle.txt">
+      <Filter>Resource Files\Meshes</Filter>
+    </Text>
+    <Text Include="Control.txt">
+      <Filter>Resource Files\Meshes</Filter>
+    </Text>
   </ItemGroup>
 </Project>

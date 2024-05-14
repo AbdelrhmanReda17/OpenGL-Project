@@ -159,15 +159,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bicycle.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="EBO.cpp" />
     <ClCompile Include="glad.c" />
+    <ClCompile Include="House.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="shaderClass.cpp" />
-    <ClCompile Include="stb.cpp" />
-    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="VAO.cpp" />
     <ClCompile Include="VBO.cpp" />
   </ItemGroup>
@@ -181,22 +181,21 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="shaderClass.h" />
-    <ClInclude Include="Texture.h" />
     <ClInclude Include="VAO.h" />
     <ClInclude Include="VBO.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="microsoft.png" />
-    <Image Include="satoro.jpg" />
-  </ItemGroup>
-  <ItemGroup>
+    <Text Include="Control.txt" />
+    <Text Include="FirstCircle.txt" />
     <Text Include="Door.txt" />
     <Text Include="FirstFloorRWindow.txt" />
     <Text Include="FirstFloorLWindow.txt" />
     <Text Include="Floor.txt" />
     <Text Include="Home.txt" />
+    <Text Include="SecondCircle.txt" />
     <Text Include="SecondFloorLWindow.txt" />
     <Text Include="SecondFloorRWindow.txt" />
+    <Text Include="Seat.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
