@@ -23,8 +23,6 @@ void Mesh::Setup() {
 	EBO.Unbind();
 }
 
-
-
 void Mesh::readMesh(std::string filename)
 {
 		std::ifstream file(filename);
@@ -53,6 +51,9 @@ void Mesh::readMesh(std::string filename)
 				indices.push_back(index1); 
 				indices.push_back(index2);
 				indices.push_back(index3);
+			}
+			else if (type == "p") {
+				ss >> this->pivot.x >> this->pivot.y >> this->pivot.z;
 			}
 		}
 		file.close();
@@ -85,12 +86,9 @@ void Mesh::rotateByAngle(float angle, const glm::vec3& axis) {
 	glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(angle), axis);
 	this->model = rotationMatrix * this->model;
 }
-void Mesh::RotateAbout(float angle, const glm::vec3& axis ,glm::vec3& center ) {
-	// Center the model by translating it to the origin
-	//glm::vec3 center = glm::vec3(0.0f); // Assuming the center is (0,0,0). Adjust if the model's center is different.
+void Mesh::RotateAbout(float angle, const glm::vec3& axis ,glm::vec3 center ) {
 	glm::mat4 translationMatrix1 = glm::translate(glm::mat4(1.0f), -center);
 	glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(angle), axis);
 	glm::mat4 translationMatrix2 = glm::translate(glm::mat4(1.0f), center);
-	// Combine the transformations
 	this->model = translationMatrix2 * rotationMatrix * translationMatrix1 * this->model;
 }

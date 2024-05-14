@@ -19,31 +19,31 @@ class House : public Model
 		{
 			if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS)
 			{
-				Rotate(this->meshes[1], true, glm::vec3(0.2f, 0.75f, 0.05f) , deltaTime);
+				Rotate(this->meshes[1], true, deltaTime);
 			}
 			if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS)
 			{
-				Rotate(this->meshes[1], false, glm::vec3(0.2f, 0.75f, 0.05f) , deltaTime);
+				Rotate(this->meshes[1], false , deltaTime);
 			}
 		}
 		if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS) {
 			if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS)
 			{
-				Rotate(this->meshes[2], true, glm::vec3(0.2, 0.24, -0.10), deltaTime);
-				Rotate(this->meshes[3], true, glm::vec3(0.2, 0.24, 0.18) , deltaTime);
-				Rotate(this->meshes[4], true, glm::vec3(0.2, 0.49, 0.18) , deltaTime);
-				Rotate(this->meshes[5], true, glm::vec3(0.2, 0.49, -0.10) , deltaTime);
+				Rotate(this->meshes[2], true, deltaTime);
+				Rotate(this->meshes[3], true , deltaTime);
+				Rotate(this->meshes[4], true , deltaTime);
+				Rotate(this->meshes[5], true , deltaTime);
 			}
 			if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS)
 			{
-				Rotate(this->meshes[2], false, glm::vec3(0.2, 0.24, -0.10) , deltaTime);
-				Rotate(this->meshes[3], false, glm::vec3(0.2, 0.24, 0.18) , deltaTime);
-				Rotate(this->meshes[4], false, glm::vec3(0.2, 0.49, 0.18) , deltaTime);
-				Rotate(this->meshes[5], false, glm::vec3(0.2, 0.49, -0.10) , deltaTime);
+				Rotate(this->meshes[2], false , deltaTime);
+				Rotate(this->meshes[3], false , deltaTime);
+				Rotate(this->meshes[4], false, deltaTime);
+				Rotate(this->meshes[5], false , deltaTime);
 			}
 		}
 	}
-	void Rotate(Mesh& mesh, bool isOpen, glm::vec3 pivot , float deltaTime) {
+	void Rotate(Mesh& mesh, bool isOpen , float deltaTime) {
 		if (isOpen) {
 			if (this->angle <= -120) return;
 			this->angle -= 200.0f * deltaTime;
@@ -52,6 +52,6 @@ class House : public Model
 			if (this->angle >= 0) return;
 			this->angle += 200.0f * deltaTime;
 		}
-		mesh.rotateAroundPivot(this->angle, glm::vec3(0.0f, 1.0f, 0.0f), pivot);
+		mesh.rotateAroundPivot(this->angle, glm::vec3(0.0f, 1.0f, 0.0f), mesh.pivot);
 	}
 };

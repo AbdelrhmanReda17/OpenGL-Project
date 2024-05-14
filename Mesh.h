@@ -16,10 +16,7 @@ public:
 	std::vector <Vertex> vertices;
 	std::vector <GLuint> indices;
 	glm::mat4 model;
-	glm::vec3 translation;
-	glm::vec3 position;
-	glm::vec3 rotation;
-	glm::vec3 scale;
+	glm::vec3 pivot;
 	VAO VAO;
 	// Initializes the mesh
 	Mesh(std::string filename);
@@ -30,7 +27,7 @@ public:
 	void rotateMesh(const glm::vec3& rotation);
 	void rotateAroundPivot(float angle, const glm::vec3& axis, const glm::vec3& pivot);
 	void rotateByAngle(float angle, const glm::vec3& axis);
-	void RotateAbout(float angle, const glm::vec3& axis, glm::vec3& center);
+	void RotateAbout(float angle, const glm::vec3& axis, glm::vec3 center);
 	void Draw(Shader& shader, Camera& camera);
 };
 #endif
