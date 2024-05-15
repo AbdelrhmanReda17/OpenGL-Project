@@ -22,12 +22,11 @@ public:
 	Mesh(std::string filename);
 	Mesh();
 	void Setup();
-	void translateMesh(const glm::vec3& translation);
-	void scaleMesh(const glm::vec3& scale);
-	void rotateMesh(const glm::vec3& rotation);
-	void rotateAroundPivot(float angle, const glm::vec3& axis, const glm::vec3& pivot);
-	void rotateByAngle(float angle, const glm::vec3& axis);
-	void RotateAbout(float angle, const glm::vec3& axis, glm::vec3 center);
+	void meshTranslate(const glm::vec3& translation);
+	void meshRotate(const glm::vec3& rotation);
+	void rotateAroundPivot(float angle, const glm::vec3& axis);
+	void meshRotatebyAngle(float angle, const glm::vec3& axis);
+	void meshRotateAboutPoint(float angle, const glm::vec3& axis, glm::vec3 point);
 	void Draw(Shader& shader, Camera& camera);
 };
 #endif

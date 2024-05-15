@@ -5,18 +5,15 @@
 
 
 
-class Model
-{
+class Model{
 public:
+	bool isMoving = false;	
 	Model();
 	void Draw(Shader& shader, Camera& camera);
 	virtual void LoadModel() = 0;
 	virtual void ModelInputs(GLFWwindow* window , float deltaTime) = 0;
 	std::vector<Mesh> meshes;
-	bool isMoving = false;
-
-private:
-	// All the meshes and transformations
-	
+	void Translate(glm::vec3 translation);
+private:	
 };
 #endif

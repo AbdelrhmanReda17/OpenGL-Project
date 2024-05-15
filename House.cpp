@@ -52,6 +52,6 @@ class House : public Model
 			if (this->angle >= 0) return;
 			this->angle += 200.0f * deltaTime;
 		}
-		mesh.rotateAroundPivot(this->angle, glm::vec3(0.0f, 1.0f, 0.0f), mesh.pivot);
+		mesh.rotateAroundPivot(this->angle, glm::vec3(0.0f, 1.0f, 0.0f));
 	}
 };

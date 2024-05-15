@@ -64,31 +64,28 @@ void Mesh::Draw (Shader& shader,Camera& camera){
 	glUniformMatrix4fv(glGetUniformLocation(shader.ID, "model"), 1, GL_FALSE, glm::value_ptr(this->model));
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 }
-void Mesh::rotateAroundPivot(float angle, const glm::vec3& axis, const glm::vec3& pivot) {
+void Mesh::rotateAroundPivot(float angle, const glm::vec3& axis) {
 	glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(angle), axis);
 	glm::mat4 translateToOrigin = glm::translate(glm::mat4(1.0f), -pivot);
 	glm::mat4 translateBack = glm::translate(glm::mat4(1.0f), pivot);
 	this->model =  translateBack * rotationMatrix * translateToOrigin;
 }
-void Mesh::scaleMesh(const glm::vec3& scale) {
-	this->model = glm::scale(this->model, scale);
-}
-void Mesh::translateMesh(const glm::vec3& translation) {
+void Mesh::meshTranslate(const glm::vec3& translation) {
 	this->model = glm::translate(glm::mat4(1.0f), translation) * this->model;
 }
-void Mesh::rotateMesh(const glm::vec3& rotation) {
+void Mesh::meshRotate(const glm::vec3& rotation) {
 	this->model = glm::rotate(this->model, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
 	this->model = glm::rotate(this->model, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
 	this->model = glm::rotate(this->model, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
 }
 
-void Mesh::rotateByAngle(float angle, const glm::vec3& axis) {
+void Mesh::meshRotatebyAngle(float angle, const glm::vec3& axis) {
 	glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(angle), axis);
 	this->model = rotationMatrix * this->model;
 }
-void Mesh::RotateAbout(float angle, const glm::vec3& axis ,glm::vec3 center ) {
-	glm::mat4 translationMatrix1 = glm::translate(glm::mat4(1.0f), -center);
+void Mesh::meshRotateAboutPoint(float angle, const glm::vec3& axis ,glm::vec3 point ) {
+	glm::mat4 translationMatrix1 = glm::translate(glm::mat4(1.0f), -point);
 	glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(angle), axis);
-	glm::mat4 translationMatrix2 = glm::translate(glm::mat4(1.0f), center);
+	glm::mat4 translationMatrix2 = glm::translate(glm::mat4(1.0f), point);
 	this->model = translationMatrix2 * rotationMatrix * translationMatrix1 * this->model;
 }
