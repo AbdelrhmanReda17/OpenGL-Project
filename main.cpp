@@ -1,7 +1,3 @@
-//------- Ignore this ----------
-#include<filesystem>
-namespace fs = std::filesystem;
-//------------------------------
 #include <iostream>
 #include "Mesh.h"
 #include "Model.h"
